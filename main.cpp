@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <random>
 
 //using namespace std;
 
@@ -78,17 +79,18 @@ vector<int> Merge(vector<int> v1, vector<int> v2, bool b)       // parameter "b"
 
 
 void VecOut(vector<int> v){
-    for (unsigned int i = 0; i < v.size(); ++i){
-        cout << v[i] << ' ';
+    cout << '{';
+    for (unsigned int i = 0; i < v.size()-1; ++i){
+        cout << v[i] << "; ";
     }
-        cout << endl;
+    cout << v[v.size()-1] << '}' << endl;
 }
 
 
 
 vector<int> SwapSort(vector<int> v, bool b) //Sorter for 2-element array
 {
-    if (b==1){
+    if (b == 1){
         if ((v.size() == 2) and (v[0] < v[1])){
             swap(v[0], v[1]);
         }
@@ -141,8 +143,9 @@ vector<int> MergeSort(vector<int> v, bool b) //Main sorting function
     }
     
     else if(v1.size() > 2 && v2.size() <= 2){
-        vector<int> v3 = MergeSort(v1, b);
-        vRes = Merge(v2, v3, b);
+        //vector<int> v3 = MergeSort(v1, b);
+        //SwapSort(v2, b);
+        vRes = Merge(SwapSort(v2, b), MergeSort(v1, b), b);
     }
    
     else{
@@ -173,6 +176,7 @@ vector<int> operator*(vector<int> vec, int fac){
 int main() {
     
     //TASK_№1
+    std::random_device rd;
     cout << "TASK_№1\n" << endl;
     bool b = 0;
     int len;
@@ -181,17 +185,53 @@ int main() {
     cout << "Enter '0' to sort array in ascending order or '1' to sort it reversibly: ";
     cin >> b;
     vector<int> vec(len);
+    /*
     for(int i = 0; i < len; ++i){
-        cout << "Enter [" << i << "] element: ";
+        cout << "Enter [" << i << "] element: ";        //fill vector by enter each element
         int n;
         cin >> n;
         vec[i] = n;
     }
+     */
+    for(int i = 0; i < len; ++i){       //automative filling vector by random elements
+        vec[i] = rd() % 2000 - 1000;
+    }
+    cout << "Vector: ";
+    VecOut(vec);
     vec = MergeSort(vec, b);
+    cout << "Sorted vector: ";
     VecOut(vec);
     
+    //Examination for MergeSort function
+    //(shows is function "MergeSort" working correct,
+    //by compairing it with result of working function "std::sort")
+    
+    vector<int> vecs(vec.begin(), vec.end());
+    std::sort(vec.begin(), vec.end());
+    bool c = 1;
+    bool &a = c;
+    for (unsigned long i = 0; i < vecs.size(); ++i){
+        if (b == 0){
+            if (vecs[i] != vec[i]){
+                cout << "Examination failed: Merge sort is uncorrect from " << i+1 << " element!" << endl;
+                a = 0;
+                break;
+            }
+        }
+        else{
+            if (vecs[vecs.size() - i - 1] != vec[i]){
+                cout << "Examination failed: Merge sort is uncorrect from " << i+1 << " element!" << endl;
+                a = 0;
+                break;
+            }
+        }
+    }
+        if (a == 1){
+            cout << "Examination finished successfully: Merge sort is correct!" << endl;
+        }
+    
     //TASK_№2
-    cout << "TASK_№2\n" << endl;
+    cout << "\nTASK_№2\n" << endl;
     int fac = 0;
     cout << "Enter factor: ";
     cin >> fac;
@@ -200,10 +240,11 @@ int main() {
     cout << endl;
     
     //TASK_№3
-    cout << "TASK_№3\n" << endl;
+    cout << "\nTASK_№3\n" << endl;
     bool par = 0;
     cout << "Enter '0' to sort array, \nEnter '1' to to multiply array by number: ";
     cin >> par;
+    
     /*
     switch(par)
     {
@@ -250,12 +291,19 @@ int main() {
         cout << "Enter length of array: ";
         cin >> len;
         vector<int> vec3(len);
+        /*
         for(int i = 0; i < len; ++i){
             cout << "Enter [" << i << "] element: ";
             int n;
             cin >> n;
             vec3[i] = n;
         }
+         */
+        for(int i = 0; i < len; ++i){
+            vec3[i] = rd() % 2000 - 1000;
+        }
+        cout << "vector: " << endl;
+        VecOut(vec3);
         int fac2;
         cout << "Enter factor: ";
         cin >> fac2;
@@ -267,11 +315,16 @@ int main() {
         cout << "Enter length of array: ";
         cin >> len;
         vector<int> vec2(len);
+        /*
         for(int i = 0; i < len; ++i){
             cout << "Enter [" << i << "] element: ";
             int n;
             cin >> n;
             vec2[i] = n;
+        }
+        */
+        for(int i = 0; i < len; ++i){
+            vec2[i] = rd() % 2000 - 1000;
         }
         cout << "Your array: ";
         VecOut(vec2);
@@ -281,9 +334,5 @@ int main() {
         cout << "Sorted array: ";
         VecOut(vec2);
     }
-    else{
-        cout<<"ERROR: UNKNOWN COMMAND!";
-    }
-    
     return 0;
 }
