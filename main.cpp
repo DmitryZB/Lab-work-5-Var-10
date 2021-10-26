@@ -207,7 +207,7 @@ int main() {
     //by compairing it with result of working function "std::sort")
     
     vector<int> vecs(vec.begin(), vec.end());
-    std::sort(vec.begin(), vec.end());
+    std::sort(vecs.begin(), vecs.end());
     bool c = 1;
     bool &a = c;
     for (unsigned long i = 0; i < vecs.size(); ++i){
