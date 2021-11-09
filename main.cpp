@@ -7,6 +7,7 @@ using std::cin;
 using std::vector;
 using std::endl;
 using std::swap;
+using std::atoi;                //do int from string
 
 vector<int> Merge(vector<int> v1, vector<int> v2, bool b = 0)       // parameter "b = 1": reverse order
 {
@@ -160,6 +161,8 @@ vector<int> operator*(vector<int> vec, int fac){
     
 int main(int argc, char* argv[]) {
     
+    int par = atoi(argv[1]);
+    
     //TASK_№1
     std::random_device rd;
     cout << "TASK_№1\n" << endl;
@@ -228,7 +231,7 @@ int main(int argc, char* argv[]) {
     //TASK_№3
     cout << "\nTASK_№3\n" << endl;
     
-    if (*argv[0] == 1){
+    if (par == 1){
         cout << "Enter length of array: ";
         cin >> len;
         vector<int> vec3(len);
@@ -252,7 +255,7 @@ int main(int argc, char* argv[]) {
         VecOut(vec3*fac2);
     }
     
-    else if (*argv[0] == 0){
+    else if (par == 0){
         cout << "Enter length of array: ";
         cin >> len;
         vector<int> vec2(len);
