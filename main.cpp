@@ -227,9 +227,6 @@ int main(int argc, char* argv[]) {
     
     //TASK_№3
     cout << "\nTASK_№3\n" << endl;
-    bool par = 0;
-    cout << "Enter '0' to sort array, \nEnter '1' to to multiply array by number: ";
-    cin >> par;
     
     if (*argv[0] == 1){
         cout << "Enter length of array: ";
