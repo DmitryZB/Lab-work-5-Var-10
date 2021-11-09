@@ -2,19 +2,13 @@
 #include <vector>
 #include <random>
 
-//using namespace std;
-
-
 using std::cout;
 using std::cin;
 using std::vector;
 using std::endl;
 using std::swap;
 
-
-
-
-vector<int> Merge(vector<int> v1, vector<int> v2, bool b)       // parameter "b" reverse order
+vector<int> Merge(vector<int> v1, vector<int> v2, bool b = 0)       // parameter "b = 1": reverse order
 {
     unsigned long len = v1.size() + v2.size();
     vector<int> vRes(len);
@@ -22,8 +16,8 @@ vector<int> Merge(vector<int> v1, vector<int> v2, bool b)       // parameter "b"
     int it2 = 0;
     if (b==1){
         for(int i = 0; i < len; ++i){
-            if(v1[it1] >= v2[it2]){         // vRes[i] = v1[it1] <= v2[it2]? v1[it1] : v2[it2];
-                vRes[i] = v1[it1];          // it1 = v1[it1] <= v2[it2]? it1++ :{};
+            if(v1[it1] >= v2[it2]){
+                vRes[i] = v1[it1];
                 it1++;
                 if (it1 > (v1.size()-1)){
                     while(v2.size()>=it2){
@@ -76,8 +70,6 @@ vector<int> Merge(vector<int> v1, vector<int> v2, bool b)       // parameter "b"
     return vRes;
 }
 
-
-
 void VecOut(vector<int> v){
     cout << '{';
     for (unsigned int i = 0; i < v.size()-1; ++i){
@@ -85,8 +77,6 @@ void VecOut(vector<int> v){
     }
     cout << v[v.size()-1] << '}' << endl;
 }
-
-
 
 vector<int> SwapSort(vector<int> v, bool b) //Sorter for 2-element array
 {
@@ -102,8 +92,6 @@ vector<int> SwapSort(vector<int> v, bool b) //Sorter for 2-element array
     }
     return v;
 }
-
-
 
 vector<int> MergeSort(vector<int> v, bool b) //Main sorting function
 {
@@ -169,11 +157,8 @@ vector<int> operator*(vector<int> vec, int fac){
    
     return vec;
 }
-
-
-
     
-int main() {
+int main(int argc, char* argv[]) {
     
     //TASK_№1
     std::random_device rd;
@@ -185,17 +170,18 @@ int main() {
     cout << "Enter '0' to sort array in ascending order or '1' to sort it reversibly: ";
     cin >> b;
     vector<int> vec(len);
-    /*
+    
     for(int i = 0; i < len; ++i){
         cout << "Enter [" << i << "] element: ";        //fill vector by enter each element
         int n;
         cin >> n;
         vec[i] = n;
     }
-     */
+    /*
     for(int i = 0; i < len; ++i){       //automative filling vector by random elements
         vec[i] = rd() % 2000 - 1000;
     }
+     */
     cout << "Vector: ";
     VecOut(vec);
     vec = MergeSort(vec, b);
@@ -245,49 +231,7 @@ int main() {
     cout << "Enter '0' to sort array, \nEnter '1' to to multiply array by number: ";
     cin >> par;
     
-    /*
-    switch(par)
-    {
-        case 0:
-            cout << "Enter length of array: ";
-            cin >> len;
-            cout << "Enter '0' to sort array in ascending order or '1' to sort it reversibly: ";
-            cin >> b;
-            vector<int> vec2(len);
-            for(int i = 0; i < len; ++i){
-                cout << "Enter [" << i << "] element: ";
-                int n;
-                cin >> n;
-                vec2[i] = n;
-            }
-            VecOut(vec2);
-            vec2 = MergeSort(vec2, b);
-            cout << "Sorted array: ";
-            VecOut(vec2);
-            break;
-        case 1:
-            cout << "Enter length of array: ";
-            cin >> len;
-            vector<int> vec3(len);
-            for(int i = 0; i < len; ++i){
-                cout << "Enter [" << i << "] element: ";
-                int n;
-                cin >> n;
-                vec3[i] = n;
-            }
-            int fac2;
-            cout << "Enter factor: ";
-            cin >> fac2;
-            cout << "Resultative vector: ";
-            VecOut(vec3*fac2);
-            break;
-        default:
-            cout<<"! UNKNOWN COMMAND !";
-            break;
-     }
-    */
-    
-    if (par==1){
+    if (*argv[0] == 1){
         cout << "Enter length of array: ";
         cin >> len;
         vector<int> vec3(len);
@@ -311,18 +255,10 @@ int main() {
         VecOut(vec3*fac2);
     }
     
-    else if (par==0){
+    else if (*argv[0] == 0){
         cout << "Enter length of array: ";
         cin >> len;
         vector<int> vec2(len);
-        /*
-        for(int i = 0; i < len; ++i){
-            cout << "Enter [" << i << "] element: ";
-            int n;
-            cin >> n;
-            vec2[i] = n;
-        }
-        */
         for(int i = 0; i < len; ++i){
             vec2[i] = rd() % 2000 - 1000;
         }
