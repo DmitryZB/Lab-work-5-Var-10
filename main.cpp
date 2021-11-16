@@ -7,7 +7,9 @@ using std::cin;
 using std::vector;
 using std::endl;
 using std::swap;
-using std::atoi;                //do int from string
+using std::ostream;
+using std::iostream;
+
 
 vector<int> Merge(vector<int> v1, vector<int> v2, bool b = 0)       // parameter "b = 1": reverse order
 {
@@ -69,14 +71,6 @@ vector<int> Merge(vector<int> v1, vector<int> v2, bool b = 0)       // parameter
     
     }
     return vRes;
-}
-
-void VecOut(vector<int> v){
-    cout << '{';
-    for (unsigned int i = 0; i < v.size()-1; ++i){
-        cout << v[i] << "; ";
-    }
-    cout << v[v.size()-1] << '}' << endl;
 }
 
 vector<int> SwapSort(vector<int> v, bool b) //Sorter for 2-element array
@@ -159,9 +153,17 @@ vector<int> operator*(vector<int> vec, int fac){
     return vec;
 }
     
+ostream& operator<<(ostream& out, const vector<int>& vec){
+    unsigned long size = vec.size();
+    out << '{';
+    for (size_t i = 0; i < size-1; ++i){
+        out << vec[i] << ", ";
+    }
+    out << vec[size-1] << '}';
+    return out;
+}
+
 int main(int argc, char* argv[]) {
-    
-    int par = atoi(argv[1]);
     
     //TASK_№1
     std::random_device rd;
@@ -185,11 +187,9 @@ int main(int argc, char* argv[]) {
         vec[i] = rd() % 2000 - 1000;
     }
      */
-    cout << "Vector: ";
-    VecOut(vec);
+    cout << "Vector: " << vec << endl;
     vec = MergeSort(vec, b);
-    cout << "Sorted vector: ";
-    VecOut(vec);
+    cout << "Sorted vector: " << vec << endl;
     
     //Examination for MergeSort function
     //(shows is function "MergeSort" working correct,
@@ -224,14 +224,12 @@ int main(int argc, char* argv[]) {
     int fac = 0;
     cout << "Enter factor: ";
     cin >> fac;
-    cout << "Resultative vector: ";
-    VecOut(vec*fac);
+    cout << "Resultative vector: " << vec*fac;
     cout << endl;
     
     //TASK_№3
     cout << "\nTASK_№3\n" << endl;
-    
-    if (par == 1){
+    if (*argv[0] == 1){
         cout << "Enter length of array: ";
         cin >> len;
         vector<int> vec3(len);
@@ -247,28 +245,26 @@ int main(int argc, char* argv[]) {
             vec3[i] = rd() % 2000 - 1000;
         }
         cout << "vector: " << endl;
-        VecOut(vec3);
+        cout << vec3 << endl;
         int fac2;
         cout << "Enter factor: ";
         cin >> fac2;
         cout << "Resultative vector: ";
-        VecOut(vec3*fac2);
+        cout << vec3*fac2 << endl;
     }
     
-    else if (par == 0){
+    else if (*argv[0] == 0){
         cout << "Enter length of array: ";
         cin >> len;
         vector<int> vec2(len);
         for(int i = 0; i < len; ++i){
             vec2[i] = rd() % 2000 - 1000;
         }
-        cout << "Your array: ";
-        VecOut(vec2);
+        cout << "Your array: " << vec2 << endl;
         cout << "Enter '0' to sort array in ascending order or '1' to sort it reversibly: ";
         cin >> b;
         vec2 = MergeSort(vec2, b);
-        cout << "Sorted array: ";
-        VecOut(vec2);
+        cout << "Sorted array: " << vec2 << endl;
     }
     return 0;
 }
