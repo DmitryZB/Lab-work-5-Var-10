@@ -152,7 +152,7 @@ vector<int> operator*(vector<int> vec, int fac){
    
     return vec;
 }
-    
+/*
 ostream& operator<<(ostream& out, const vector<int>& vec){
     unsigned long size = vec.size();
     out << '{';
@@ -160,6 +160,15 @@ ostream& operator<<(ostream& out, const vector<int>& vec){
         out << vec[i] << ", ";
     }
     out << vec[size-1] << '}';
+    return out;
+}
+*/
+ostream& operator<<(ostream& out, const vector<int>& vec){
+    out << '{';
+    for (int i : vec){
+        out << i << ", ";
+    }
+    out << '}';
     return out;
 }
 
